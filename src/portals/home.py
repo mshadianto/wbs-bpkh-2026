@@ -1,44 +1,19 @@
 """
-WBS BPKH - AI-Powered Whistleblowing System
-Main Entry Point - Router to Reporter/Manager Interfaces
-Badan Pengelola Keuangan Haji (BPKH)
-
-Modular Architecture v2.0
+Home Page Portal
+Landing page with portal selection
 """
 
-import sys
-from pathlib import Path
-
-# Add src to Python path for modular imports
-src_path = Path(__file__).parent / "src"
-if str(src_path) not in sys.path:
-    sys.path.insert(0, str(src_path))
-
 import streamlit as st
-
-# Legacy imports for backward compatibility
-from styles import ISLAMIC_CSS, ARABIC_TEXTS, render_islamic_footer
-from config import AppConfig
-
-# Page configuration
-st.set_page_config(
-    page_title="WBS BPKH - Whistleblowing System",
-    page_icon="🕌",
-    layout="wide",
-    initial_sidebar_state="collapsed"
-)
-
-# Initialize session state for navigation
-if 'current_portal' not in st.session_state:
-    st.session_state.current_portal = 'home'
-
-config = AppConfig()
+from ..ui.styles import ISLAMIC_CSS, ARABIC_TEXTS, render_islamic_footer
+from ..config import get_settings
 
 
-def show_home():
-    """Show home/portal selection page with Islamic theme"""
+def render_home_page():
+    """Render the home/landing page"""
 
-    # Apply Islamic CSS
+    settings = get_settings()
+
+    # Apply CSS
     st.markdown(ISLAMIC_CSS, unsafe_allow_html=True)
 
     # Islamic Header
@@ -91,15 +66,48 @@ def show_home():
                 Anda tidak perlu khawatir terungkapnya identitas diri Anda karena BPKH akan
                 <strong style="color: #D4AF37;">MERAHASIAKAN IDENTITAS DIRI ANDA</strong> sebagai whistleblower.
             </p>
-            <p style="font-size: 1rem; color: #5D6D7E; margin-top: 1rem; font-style: italic;">
-                "BPKH menghargai informasi yang Anda laporkan. Fokus kami kepada materi informasi yang Anda Laporkan."
-            </p>
         </div>
         """, unsafe_allow_html=True)
 
     st.markdown('<div class="gold-line" style="width: 100%; margin: 2rem 0;"></div>', unsafe_allow_html=True)
 
-    # Unsur Pengaduan Section (5W)
+    # 5W+1H Section
+    _render_5w_section()
+
+    st.markdown('<div class="gold-line" style="width: 100%; margin: 2rem 0;"></div>', unsafe_allow_html=True)
+
+    # Privacy Section
+    _render_privacy_section()
+
+    st.markdown('<div class="gold-line" style="width: 100%; margin: 2rem 0;"></div>', unsafe_allow_html=True)
+
+    # Portal Selection
+    _render_portal_selection()
+
+    st.markdown('<div class="gold-line" style="width: 100%; margin: 2rem 0;"></div>', unsafe_allow_html=True)
+
+    # Features Section
+    _render_features_section()
+
+    # Contact Section
+    contact = settings.contact.to_dict()
+    st.markdown(f"""
+    <div class="contact-section" style="margin-top: 2rem;">
+        <h3 style="margin-top: 0; color: #F4E4BA; position: relative;">Butuh Bantuan?</h3>
+        <p style="position: relative; line-height: 2;">
+            <strong>Email:</strong> {contact['Email']}<br>
+            <strong>WhatsApp:</strong> {contact['WhatsApp']}<br>
+            <strong>Portal:</strong> {contact['Web Portal']}
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    # Footer
+    st.markdown(render_islamic_footer(), unsafe_allow_html=True)
+
+
+def _render_5w_section():
+    """Render 5W+1H section"""
     st.markdown('<h3 class="section-title">Unsur Pengaduan (5W + 1H)</h3>', unsafe_allow_html=True)
 
     st.markdown("""
@@ -110,8 +118,6 @@ def show_home():
     </div>
     """, unsafe_allow_html=True)
 
-    col1, col2, col3, col4, col5 = st.columns(5)
-
     elements_5w = [
         ("What", "Apa", "Perbuatan berindikasi pelanggaran yang diketahui", "❓"),
         ("Where", "Dimana", "Lokasi perbuatan tersebut dilakukan", "📍"),
@@ -120,7 +126,8 @@ def show_home():
         ("How", "Bagaimana", "Modus dan cara perbuatan dilakukan", "🔍"),
     ]
 
-    for col, (en, id_, desc, icon) in zip([col1, col2, col3, col4, col5], elements_5w):
+    cols = st.columns(5)
+    for col, (en, id_, desc, icon) in zip(cols, elements_5w):
         with col:
             st.markdown(f"""
             <div class="element-5w">
@@ -131,9 +138,9 @@ def show_home():
             </div>
             """, unsafe_allow_html=True)
 
-    st.markdown('<div class="gold-line" style="width: 100%; margin: 2rem 0;"></div>', unsafe_allow_html=True)
 
-    # Kerahasiaan Section
+def _render_privacy_section():
+    """Render privacy/confidentiality section"""
     st.markdown('<h3 class="section-title">Kerahasiaan Pelapor</h3>', unsafe_allow_html=True)
 
     st.markdown("""
@@ -146,16 +153,16 @@ def show_home():
             <strong>Agar kerahasiaan lebih terjaga, perhatikan hal-hal berikut:</strong>
         </p>
         <ul style="color: #2C3E50; line-height: 2;">
-            <li>Jika ingin identitas Anda tetap rahasia, <strong>jangan memberitahukan/mengisikan data-data pribadi</strong>, seperti nama Anda, atau hubungan Anda dengan pelaku-pelaku.</li>
-            <li>Jangan memberitahukan/mengisikan data-data/informasi yang memungkinkan bagi orang lain untuk melakukan pelacakan siapa Anda.</li>
-            <li><strong>Hindari orang lain mengetahui</strong> nama samaran (username), kata sandi (password) serta nomor registrasi Anda.</li>
+            <li>Jika ingin identitas Anda tetap rahasia, <strong>jangan memberitahukan/mengisikan data-data pribadi</strong></li>
+            <li>Jangan memberitahukan data/informasi yang memungkinkan pelacakan identitas Anda</li>
+            <li><strong>Hindari orang lain mengetahui</strong> username, password serta nomor registrasi Anda</li>
         </ul>
     </div>
     """, unsafe_allow_html=True)
 
-    st.markdown('<div class="gold-line" style="width: 100%; margin: 2rem 0;"></div>', unsafe_allow_html=True)
 
-    # Portal Selection
+def _render_portal_selection():
+    """Render portal selection cards"""
     st.markdown('<h3 class="section-title">Pilih Portal</h3>', unsafe_allow_html=True)
 
     col1, col2 = st.columns(2)
@@ -170,10 +177,10 @@ def show_home():
             </div>
             <div class="feature-box">
                 <ul>
-                    <li>✅ Submit laporan baru</li>
-                    <li>✅ Lacak status laporan</li>
-                    <li>✅ Komunikasi anonim dengan pengelola</li>
-                    <li>✅ AI Chatbot bantuan</li>
+                    <li>Submit laporan baru</li>
+                    <li>Lacak status laporan</li>
+                    <li>Komunikasi anonim dengan pengelola</li>
+                    <li>AI Chatbot bantuan</li>
                 </ul>
             </div>
         </div>
@@ -193,10 +200,10 @@ def show_home():
             </div>
             <div class="feature-box">
                 <ul>
-                    <li>✅ Dashboard & Analytics</li>
-                    <li>✅ Manajemen laporan</li>
-                    <li>✅ Assign investigator</li>
-                    <li>✅ Komunikasi dengan pelapor</li>
+                    <li>Dashboard & Analytics</li>
+                    <li>Manajemen laporan</li>
+                    <li>Assign investigator</li>
+                    <li>Komunikasi dengan pelapor</li>
                 </ul>
             </div>
         </div>
@@ -206,90 +213,43 @@ def show_home():
             st.session_state.current_portal = 'manager'
             st.rerun()
 
-    st.markdown('<div class="gold-line" style="width: 100%; margin: 2rem 0;"></div>', unsafe_allow_html=True)
 
-    # Features Section
+def _render_features_section():
+    """Render system features section"""
     st.markdown('<h3 class="section-title">Keunggulan Sistem</h3>', unsafe_allow_html=True)
 
     col1, col2, col3 = st.columns(3)
 
-    with col1:
-        st.markdown("""
-        <div class="islamic-card" style="text-align: center; height: 100%;">
-            <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🔒</div>
-            <h4 style="color: #1B5E20; margin: 0.5rem 0;">Keamanan Terjamin</h4>
-            <ul style="text-align: left; color: #5D6D7E; padding-left: 1.5rem; line-height: 1.8;">
-                <li>Identitas pelapor dilindungi</li>
-                <li>Data terenkripsi</li>
-                <li>Sesuai PP 71/2000</li>
-                <li>Akses terkontrol</li>
-            </ul>
-        </div>
-        """, unsafe_allow_html=True)
+    features = [
+        ("🔒", "Keamanan Terjamin", [
+            "Identitas pelapor dilindungi",
+            "Data terenkripsi",
+            "Sesuai PP 71/2000",
+            "Akses terkontrol"
+        ]),
+        ("🤖", "AI-Powered", [
+            "Processing < 5 detik",
+            "Klasifikasi otomatis",
+            "Compliance 93%+",
+            "6 AI Agents"
+        ]),
+        ("📱", "Multi-Channel", [
+            "Web Portal",
+            "WhatsApp Integration",
+            "AI Chatbot",
+            "Email Notification"
+        ])
+    ]
 
-    with col2:
-        st.markdown("""
-        <div class="islamic-card" style="text-align: center; height: 100%;">
-            <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🤖</div>
-            <h4 style="color: #1B5E20; margin: 0.5rem 0;">AI-Powered</h4>
-            <ul style="text-align: left; color: #5D6D7E; padding-left: 1.5rem; line-height: 1.8;">
-                <li>Processing < 5 detik</li>
-                <li>Klasifikasi otomatis</li>
-                <li>Compliance 93%+</li>
-                <li>6 AI Agents</li>
-            </ul>
-        </div>
-        """, unsafe_allow_html=True)
-
-    with col3:
-        st.markdown("""
-        <div class="islamic-card" style="text-align: center; height: 100%;">
-            <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">📱</div>
-            <h4 style="color: #1B5E20; margin: 0.5rem 0;">Multi-Channel</h4>
-            <ul style="text-align: left; color: #5D6D7E; padding-left: 1.5rem; line-height: 1.8;">
-                <li>Web Portal</li>
-                <li>WhatsApp Integration</li>
-                <li>AI Chatbot</li>
-                <li>Email Notification</li>
-            </ul>
-        </div>
-        """, unsafe_allow_html=True)
-
-    # Contact Section
-    st.markdown(f"""
-    <div class="contact-section" style="margin-top: 2rem;">
-        <h3 style="margin-top: 0; color: #F4E4BA; position: relative;">Butuh Bantuan?</h3>
-        <p style="position: relative; line-height: 2;">
-            <strong>Email:</strong> {config.contact_info['Email']}<br>
-            <strong>WhatsApp:</strong> {config.contact_info['WhatsApp']}<br>
-            <strong>Portal:</strong> {config.contact_info['Web Portal']}
-        </p>
-    </div>
-    """, unsafe_allow_html=True)
-
-    # Islamic Footer
-    st.markdown(render_islamic_footer(), unsafe_allow_html=True)
-
-
-def main():
-    """Main entry point with navigation"""
-
-    # Check current portal
-    portal = st.session_state.current_portal
-
-    if portal == 'home':
-        show_home()
-    elif portal == 'reporter':
-        # Import and run reporter app
-        from app_reporter import main as reporter_main
-        reporter_main()
-    elif portal == 'manager':
-        # Import and run manager app
-        from app_manager import main as manager_main
-        manager_main()
-    else:
-        show_home()
-
-
-if __name__ == "__main__":
-    main()
+    for col, (icon, title, items) in zip([col1, col2, col3], features):
+        with col:
+            items_html = "\n".join([f"<li>{item}</li>" for item in items])
+            st.markdown(f"""
+            <div class="islamic-card" style="text-align: center; height: 100%;">
+                <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">{icon}</div>
+                <h4 style="color: #1B5E20; margin: 0.5rem 0;">{title}</h4>
+                <ul style="text-align: left; color: #5D6D7E; padding-left: 1.5rem; line-height: 1.8;">
+                    {items_html}
+                </ul>
+            </div>
+            """, unsafe_allow_html=True)
