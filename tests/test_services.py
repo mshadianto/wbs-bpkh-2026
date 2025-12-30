@@ -3,28 +3,16 @@ Services Tests
 Tests for business logic services
 """
 
-import sys
-from pathlib import Path
-
-# Add src to path
-sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
-
 import pytest
-import os
-
-# Set test environment
-os.environ['DB_MODE'] = 'sqlite'
-os.environ['DB_PATH'] = ':memory:'
-
-from services import AuthService, ReportService
-from models import ReportCreate
+from src.services import AuthService, ReportService
+from src.models import ReportCreate
+from src.database.factory import DatabaseFactory
 
 
 class TestAuthService:
     """Test AuthService"""
 
     def setup_method(self):
-        from database.factory import DatabaseFactory
         DatabaseFactory.reset()
         self.service = AuthService()
 
@@ -54,7 +42,6 @@ class TestReportService:
     """Test ReportService"""
 
     def setup_method(self):
-        from database.factory import DatabaseFactory
         DatabaseFactory.reset()
         self.service = ReportService()
 
@@ -96,7 +83,7 @@ class TestReportService:
         data = ReportCreate(
             what='Detailed description of violation that is long enough',
             where='Jakarta',
-            when='2025',
+            when='Januari 2025',
             who='Manager',
             how='Through illegal means'
         )
@@ -115,7 +102,7 @@ class TestReportService:
         data = ReportCreate(
             what='Detailed description of violation that is long enough',
             where='Jakarta',
-            when='2025',
+            when='Januari 2025',
             who='Manager',
             how='Through illegal means'
         )

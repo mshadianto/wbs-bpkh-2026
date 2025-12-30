@@ -3,14 +3,8 @@ Agent Tests
 Tests for AI agents
 """
 
-import sys
-from pathlib import Path
-
-# Add src to path
-sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
-
 import pytest
-from agents import ClassifierAgent, ValidatorAgent, SummarizerAgent, AgentPipeline
+from src.agents import ClassifierAgent, ValidatorAgent, SummarizerAgent, AgentPipeline
 
 
 class TestClassifierAgent:

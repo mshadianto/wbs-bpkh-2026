@@ -20,10 +20,21 @@ class SQLiteDatabase(DatabaseInterface):
 
     def __init__(self, db_path: str = "wbs_database.db"):
         self.db_path = db_path
+        self._is_memory = db_path == ':memory:'
+        self._shared_conn = None
+
+        # For in-memory databases, keep a persistent connection
+        if self._is_memory:
+            self._shared_conn = sqlite3.connect(':memory:', check_same_thread=False)
+            self._shared_conn.row_factory = sqlite3.Row
+
         self._init_database()
 
     def _get_connection(self) -> sqlite3.Connection:
         """Get database connection with row factory"""
+        if self._is_memory and self._shared_conn:
+            return self._shared_conn
+
         conn = sqlite3.connect(self.db_path)
         conn.row_factory = sqlite3.Row
         return conn
@@ -40,7 +51,9 @@ class SQLiteDatabase(DatabaseInterface):
             conn.rollback()
             raise e
         finally:
-            conn.close()
+            # Don't close shared in-memory connection
+            if not self._is_memory:
+                conn.close()
 
     def _init_database(self):
         """Initialize database tables"""

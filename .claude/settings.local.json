@@ -13,7 +13,9 @@
       "Bash(git commit -m \"$\\(cat <<''EOF''\nInitial commit: WBS BPKH - AI-Powered Whistleblowing System\n\nFeatures:\n- Reporter portal with anonymous reporting\n- Manager portal with dashboard & analytics\n- AI agents for report processing\n- Supabase cloud database integration\n- WhatsApp/WAHA integration ready\n- macOS-inspired glassmorphism UI\n- Islamic theme design\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
       "Bash(git remote add:*)",
       "Bash(git branch:*)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nRefactor: Modular, scalable & stable architecture v2.0\n\nMajor restructuring for better maintainability:\n\nArchitecture:\n- src/config: Centralized settings & constants with Enums\n- src/models: Type-safe dataclasses for Report, User, Message\n- src/database: Repository pattern with SQLite/Supabase abstraction\n- src/services: Business logic layer \\(Auth, Report, Notification\\)\n- src/agents: AI agents with base class and pipeline orchestration\n- src/integrations: External services \\(WAHA/WhatsApp\\)\n- src/ui: Reusable components, themes, styles\n- src/portals: Streamlit page modules\n\nDesign Patterns:\n- Repository Pattern for data access\n- Factory Pattern for database selection\n- Strategy Pattern for interchangeable implementations\n- Pipeline Pattern for AI agent orchestration\n\nNew Features:\n- Comprehensive test suite\n- REST API with FastAPI\n- Architecture documentation\n- Utility scripts\n\nBackward Compatible:\n- Legacy app.py still works\n- All existing functionality preserved\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(PYTHONPATH=\"C:/WBS 2026/src\" python -m pytest:*)"
     ]
   }
 }

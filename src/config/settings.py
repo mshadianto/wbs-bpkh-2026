@@ -123,3 +123,24 @@ def get_settings() -> Settings:
     Use this function to access settings throughout the application.
     """
     return Settings()
+
+
+# Backward compatibility alias
+class AppConfig:
+    """
+    Backward compatibility wrapper for legacy code.
+    Maps to new Settings structure.
+    """
+    def __init__(self):
+        settings = get_settings()
+        self.app_title = f"🛡️ {settings.app.name} - AI-Powered Whistleblowing System"
+        self.app_subtitle = "Badan Pengelola Keuangan Haji (BPKH)"
+        self.version = settings.app.version
+        self.db_path = settings.database.sqlite_path
+        self.groq_api_key = settings.ai.api_key or ""
+        self.contact_info = {
+            "Email": settings.contact.email,
+            "WhatsApp": settings.contact.whatsapp,
+            "Web Portal": settings.contact.web_portal,
+            "Support": "it@bpkh.go.id"
+        }

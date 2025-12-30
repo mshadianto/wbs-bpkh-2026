@@ -16,9 +16,9 @@ if str(src_path) not in sys.path:
 
 import streamlit as st
 
-# Legacy imports for backward compatibility
-from styles import ISLAMIC_CSS, ARABIC_TEXTS, render_islamic_footer
-from config import AppConfig
+# Modular imports from src
+from src.ui import ISLAMIC_CSS, ARABIC_TEXTS, render_islamic_footer
+from src.config import AppConfig
 
 # Page configuration
 st.set_page_config(
@@ -280,13 +280,13 @@ def main():
     if portal == 'home':
         show_home()
     elif portal == 'reporter':
-        # Import and run reporter app
-        from app_reporter import main as reporter_main
-        reporter_main()
+        # Import and run reporter portal from modular src
+        from src.portals import render_reporter_portal
+        render_reporter_portal()
     elif portal == 'manager':
-        # Import and run manager app
-        from app_manager import main as manager_main
-        manager_main()
+        # Import and run manager portal from modular src
+        from src.portals import render_manager_portal
+        render_manager_portal()
     else:
         show_home()
 

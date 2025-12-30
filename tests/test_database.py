@@ -3,15 +3,10 @@ Database Tests
 Tests for database operations
 """
 
-import sys
-from pathlib import Path
-
-# Add src to path
-sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
-
 import pytest
-from database import get_database, ReportRepository, UserRepository, MessageRepository
-from models import ReportCreate, UserCreate
+from src.database import get_database, ReportRepository, UserRepository, MessageRepository
+from src.database.factory import DatabaseFactory
+from src.models import ReportCreate, UserCreate
 
 
 class TestDatabase:
@@ -19,13 +14,7 @@ class TestDatabase:
 
     def setup_method(self):
         """Setup test database"""
-        # Use SQLite for testing
-        import os
-        os.environ['DB_MODE'] = 'sqlite'
-        os.environ['DB_PATH'] = ':memory:'
-
-        # Get fresh database
-        from database.factory import DatabaseFactory
+        # Reset and get fresh database
         DatabaseFactory.reset()
         self.db = get_database()
 
@@ -121,11 +110,6 @@ class TestReportRepository:
 
     def setup_method(self):
         """Setup"""
-        import os
-        os.environ['DB_MODE'] = 'sqlite'
-        os.environ['DB_PATH'] = ':memory:'
-
-        from database.factory import DatabaseFactory
         DatabaseFactory.reset()
         self.db = get_database()
         self.repo = ReportRepository(self.db)

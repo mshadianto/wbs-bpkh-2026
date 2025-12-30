@@ -58,6 +58,8 @@ class DatabaseFactory:
         if cls._instance is not None:
             cls._instance.close()
             cls._instance = None
+        # Also clear the lru_cache on get_database
+        get_database.cache_clear()
 
 
 @lru_cache()
