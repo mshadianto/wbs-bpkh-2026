@@ -200,7 +200,7 @@ A: Currently single-user. For multi-user setup, see DEPLOYMENT.md for authentica
 ## 📞 Support
 
 **Email**: it@bpkh.go.id  
-**WhatsApp**: +62 853-19000-230  
+**WhatsApp**: 085319000230 / 085319000140  
 **Web**: portal.bpkh.go.id/wbs
 
 ---

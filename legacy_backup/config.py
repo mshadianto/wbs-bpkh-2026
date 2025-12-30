@@ -36,7 +36,7 @@ class AppConfig:
     def __post_init__(self):
         self.contact_info = {
             "Email": "wbs@bpkh.go.id",
-            "WhatsApp": "+62 853-19000-230",
+            "WhatsApp": "085319000230 / 085319000140",
             "Web Portal": "portal.bpkh.go.id/wbs",
             "Support": "it@bpkh.go.id"
         }

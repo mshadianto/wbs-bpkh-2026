@@ -86,7 +86,7 @@ class AppSettings:
 class ContactInfo:
     """Organization contact information"""
     email: str = "wbs@bpkh.go.id"
-    whatsapp: str = "+62 21 1234 5678"
+    whatsapp: str = "085319000230 / 085319000140"
     web_portal: str = "https://wbs.bpkh.go.id"
     hotline: str = "1500-123"
 

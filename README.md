@@ -330,7 +330,7 @@ wbs-bpkh-ai/
 ### BPKH Contact
 
 - 📧 **Email**: wbs@bpkh.go.id
-- 📱 **WhatsApp**: +62 853-19000-230
+- 📱 **WhatsApp**: 085319000230 / 085319000140
 - 🌐 **Web Portal**: portal.bpkh.go.id/wbs
 - 💻 **IT Support**: it@bpkh.go.id
 

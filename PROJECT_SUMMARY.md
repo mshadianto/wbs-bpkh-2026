@@ -296,7 +296,7 @@ docker run -p 8501:8501 wbs-bpkh:latest
 
 ### BPKH Official
 - 📧 **Email**: wbs@bpkh.go.id
-- 📱 **WhatsApp**: +62 853-19000-230
+- 📱 **WhatsApp**: 085319000230 / 085319000140
 - 🌐 **Portal**: portal.bpkh.go.id/wbs
 - 💻 **IT Support**: it@bpkh.go.id
 

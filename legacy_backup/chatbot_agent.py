@@ -419,7 +419,7 @@ Untuk informasi lebih lanjut, silakan hubungi tim WBS melalui email atau WhatsAp
 Anda bisa mencoba:
 1. Mengajukan pertanyaan dengan kata kunci yang berbeda
 2. Menghubungi tim WBS di wbs@bpkh.go.id
-3. WhatsApp: +62 853-19000-230
+3. WhatsApp: 085319000230 / 085319000140
 
 Atau ketik 'lapor' untuk membuat laporan baru."""
 
