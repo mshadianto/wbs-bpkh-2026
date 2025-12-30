@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -m streamlit:*)",
+      "Bash(cat:*)",
+      "Bash(pip install:*)",
+      "Bash(curl:*)",
+      "Bash(python api_server.py:*)",
+      "Bash(python:*)",
+      "Bash(tasklist:*)",
+      "Bash(git init:*)",
+      "Bash(git add:*)"
+    ]
+  }
+}

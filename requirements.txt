@@ -1,0 +1,39 @@
+# WBS BPKH - AI-Powered Whistleblowing System
+# Requirements
+
+# Core Framework
+streamlit==1.40.1
+python-dotenv==1.0.1
+
+# AI & ML
+groq==0.13.0
+
+# Database
+# sqlite3 - Built-in with Python
+
+# Data Processing
+pandas==2.2.3
+numpy==2.2.0
+
+# Document Processing
+python-docx==1.1.2
+openpyxl==3.1.5
+
+# Utilities
+pillow==11.0.0
+plotly==5.24.1
+python-dateutil==2.9.0.post0
+
+# API Server (for WAHA webhooks)
+fastapi==0.115.0
+uvicorn==0.32.0
+pydantic==2.10.0
+
+# HTTP Client (for WAHA integration)
+httpx==0.27.2
+
+# Authentication
+bcrypt==4.2.0
+
+# Optional: For production deployment
+gunicorn==23.0.0
